@@ -1,0 +1,70 @@
+GET http://127.0.0.1:3000/user-api/users
+ 
+
+###
+POST http://127.0.0.1:3000/user-api/users
+Content-Type: application/json
+
+{
+    "id":500,
+    "name":"ram",
+    "age":19
+}
+
+
+###
+PUT http://127.0.0.1:3000/user-api/users/id
+Content-Type: application/json
+
+{
+    "id":500,
+    "name":"kavi kumar",
+    "age":19
+}
+
+
+### Read user by id
+GEt http://127.0.0.1:3000/user-api/users/500
+
+###
+DELETE http://127.0.0.1:3000/user-api/users/500
+
+
+
+
+###
+GET http://127.0.0.1:3000/product-api/products
+ 
+
+###
+POST http://127.0.0.1:3000/product-api/products
+Content-Type: application/json
+
+{
+    "id":500,
+    "name":"top",
+    "price":5000,
+    "brand":"Zudio"
+}
+
+
+###
+PUT http://127.0.0.1:3000/product-api/products/id
+Content-Type: application/json
+
+{
+    "id":500,
+    "name":"kavi kumar",
+    "price":19,
+    "brand":"Zudio"
+}
+
+
+### Read user by id
+GEt http://127.0.0.1:3000/product-api/products-id/500
+
+###
+GET http://127.0.0.1:3000/product-api/products-brand/Zudio
+
+###
+DELETE http://127.0.0.1:3000/product-api/products/500
