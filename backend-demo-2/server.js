@@ -26,3 +26,8 @@ app.use(exp.json());
 
 app.use('/user-api',userApp)
 app.use('/product-api',productApp)
+
+//error handling middleware
+app.use((err,req,res,next)=>{
+    res.status(500).send({message:"error",reason:err.message})
+})

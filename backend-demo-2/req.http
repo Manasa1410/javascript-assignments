@@ -35,7 +35,7 @@ POST http://localhost:4000/product-api/products
 Content-Type: application/json  
 
 {
-    "productName":"mouse",
+    "productName":"laptop",
     "price":3000
 }
 
@@ -46,7 +46,7 @@ GET http://localhost:4000/product-api/products/697f94a4f64a12a689290b81
 
 ### update product
 
-PUT http://localhost:4000/product-api/products/697f94a4f64a12a689290b81   
+PUT http://localhost:4000/product-api/products/69801a000203a49f0cd5144f   
 Content-Type: application/json 
 
 {
@@ -56,4 +56,13 @@ Content-Type: application/json
 
 
 ###Delete product by Id
-DELETE http://localhost:4000/product-api/products/697f94a4f64a12a689290b81
+DELETE http://localhost:4000/product-api/products/69801a000203a49f0cd5144f
+
+### User authentication(Login) req
+POST http://localhost:4000/user-api/auth
+Content-Type: application/json
+
+{
+    "username":"Manasa",
+    "password":"Manasa@123"
+}

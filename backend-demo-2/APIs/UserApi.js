@@ -1,5 +1,7 @@
 import exp from 'express';
 import {UserModel} from '../model/UserModel.js'
+import {hash,compare} from 'bcryptjs'
+import jwt from 'jsonwebtoken';
 export const userApp=exp.Router()
 
 //get all users
@@ -12,6 +14,10 @@ userApp.get('/users',async(req,res)=>{
 //create user
 userApp.post('/users',async(req,res)=>{
     let newuser=req.body;
+    //hash the password
+    let hashedPassword=await hash(newuser.password,12)
+    //replace plain password with hashed password
+    newuser.password=hashedPassword;
     console.log(newuser)
     //craete new user document
     let newUserDocument=new UserModel(newuser)
@@ -47,3 +53,30 @@ userApp.delete('/users/:id',async(req,res)=>{
     //logic to delete user by id from db
     let deletedUser=await UserModel.findByIdAndDelete(userId)
     res.status(200).json({message:"User deleted",payload:deletedUser})})
+
+
+
+   
+
+    userApp.post('/auth',async(req,res)=>{
+        let userCred=req.body;
+        //check for username
+        let userOfDB=await UserModel.findOne({username:userCred.username})
+        //if user not found
+        if(userOfDB===null){
+            return res.status(404).json({message:"Invalid username"})
+        }
+        //if user found, compare passwords
+        let isMatch=await compare(userCred.password,userOfDB.password)
+        if(isMatch===false){
+            return res.status(404).json({message:"Invalid password"})
+        }
+        //create a signed token
+        let signedToken=jwt.sign({username:userCred.username},'abcdef',{expiresIn:30})
+        //send token in res
+       //cannot send token 
+       //so we should save token in httpOnly cookie
+       res.cookie('token',signedToken,{httpOnly:true,secure:false,sameSite:"lax"})
+//send token in res
+res.status(200).json({message:"Login Successful"})
+    })
